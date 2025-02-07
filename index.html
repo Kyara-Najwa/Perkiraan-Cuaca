@@ -1,0 +1,58 @@
+<!-- pilih-desa.html -->
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pilih Desa di Kecamatan Blimbing</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+        }
+        .container {
+            text-align: center;
+            margin-top: 50px;
+        }
+        .desa {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #ffc1ec;
+            transition: background-color 0.3s;
+        }
+        .desa:hover {
+            background-color: #ffeaf9;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Kecamatan Blimbing</h1>
+        <div class="desa" onclick="selectDesa1('Balearjosari')">Balearjosari</div>
+        <div class="desa" onclick="selectDesa2('Arjosari')">Arjosari</div>
+        <div class="desa" onclick="selectDesa3('Polowijen')">Polowijen</div>
+    </div>
+
+    <script>
+        function selectDesa1(desa) {
+            // Redirect ke halaman detail desa dengan parameter query
+            window.location.href = `fxDetail.html?desa=${desa}`;
+        }
+
+        function selectDesa2(desa) {
+            // Redirect ke halaman detail desa dengan parameter query
+            window.location.href = `fxDetail-Arjosari.html?desa=${desa}`;
+        }
+
+        function selectDesa3(desa) {
+            // Redirect ke halaman detail desa dengan parameter query
+            window.location.href = `fxDetail-Polowijen.html?desa=${desa}`;
+        }
+    </script>
+</body>
+</html>

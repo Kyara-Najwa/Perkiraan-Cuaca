@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Perkiraan Cuaca Balearjosari</title>
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 20px;
+      }
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      .date-button {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        background-color: #ffeaf9;
+        color: black;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-align: left;
+      }
+      .back-button {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        background-color: #ffeaf9;
+        color: black;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 20px;
+      }
+      button:hover {
+    background-color: #ffc1ec;
+}
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="text-2xl font-bold mb-4">Perkiraan Cuaca Balearjosari</h1>
+      <div id="dateButtons"></div>
+      <!-- Tombol Kembali -->
+      <button class="back-button" onclick="goBack()">Kembali</button>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+      const kelurahanId = "35.73.01.1001"; // Balearjosari ID
+      const apiUrl = `https://api.bmkg.go.id/publik/prakiraan-cuaca?adm4=${kelurahanId}`;
+
+      $(document).ready(function () {
+        $.ajax({
+          url: apiUrl,
+          method: "GET",
+          dataType: "json",
+          success: function (response) {
+            const forecasts = response.data[0].cuaca;
+            displayDateButtons(forecasts);
+          },
+          error: function (xhr, status, error) {
+            console.error("Error fetching data:", error);
+          },
+        });
+      });
+
+      function displayDateButtons(forecasts) {
+        const dateButtonsContainer = $("#dateButtons");
+        forecasts.forEach((forecast, index) => {
+          const date = new Date(forecast[0].local_datetime);
+          const formattedDate = date.toLocaleDateString("id-ID", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          });
+          const button = $("<button>")
+            .addClass("date-button")
+            .text(formattedDate)
+            .on("click", () => goToForecast(index));
+          dateButtonsContainer.append(button);
+        });
+      }
+
+      function goToForecast(index) {
+        window.location.href = `calendar.html?index=${index}`;
+      }
+
+      function goBack() {
+  window.history.go(-3);  // Kembali tiga langkah di riwayat
+}
+
+    </script>
+  </body>
+</html>
+
